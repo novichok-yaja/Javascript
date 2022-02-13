@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=New+Tegomin&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.body {
+  background: url(../img/bg.jpg);
+  min-height: 100vh;
+  background-size: 100vw 100vh;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#board {
+  background: linear-gradient(rgb(191, 230, 21), rgb(62, 206, 110));
+  width: 90vmin;
+  height: 92vmin;
+  border: 1px solid black;
+  display: grid;
+  grid-template-rows: repeat(18, 1fr);
+  grid-template-columns: repeat(18, 1fr);
+}
+
+.head{
+  background-color: red;
+}
+
+.snake{
+  background-color: yellow;
+}
+
+.food{
+  background-color: rgb(207, 42, 207);
+}
