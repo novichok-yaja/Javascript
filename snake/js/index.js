@@ -1,11 +1,12 @@
 let inputDir = { x: 0, y: 0 };
 const foodSound = new Audio("music//food.mp3");
-const gameOverSound = new Audio("music//move.mp3");
+const gameOverSound = new Audio("music//gameover.mp3");
 const moveSound = new Audio("music//move.mp3");
-const musicSound = new Audio("music//move.mp3");
+const musicSound = new Audio("music//music.mp3");
 let speed = 2;
 let score = 0;
 let lastRenderedTime = 0;
+
 
 let snake_arr = [
   {
@@ -14,8 +15,9 @@ let snake_arr = [
   },
 ];
 
-food = { x: 6, y: 7 };
-
+food = { 
+  x: 6, y: 7 
+};
 
 
 function main(ctime) {
@@ -29,14 +31,11 @@ function main(ctime) {
 
 
 function isCollide(sarr) {
-    return false;
-  }
-
-
+  return false;
+}
 
 
 function gameEngine() {
-
   //update snake
   if (isCollide(snake_arr)) {
     gameOverSound.play();
@@ -53,26 +52,28 @@ function gameEngine() {
     score = 0;
   }
 
-
-// New food and snake length increase
+  // New food and snake length increase
   if (snake_arr[0].y === food.y && snake_arr[0].x === food.x) {
-      foodSound.play();
-      snake_arr.unshift({x:snake_arr[0].x + inputDir.x, x:snake_arr[0].y + inputDir.y});
-      let a = 2;
-      let b = 16;
-      food = {x:2 + Math.round(a + (b-a)*Math.random()), y:2 + Math.round(a + (b-a)*Math.random())}
+    foodSound.play();
+    snake_arr.unshift({
+      x: snake_arr[0].x + inputDir.x,
+      y: snake_arr[0].y + inputDir.y,
+    });
+    let a = 2;
+    let b = 16;
+    food = {
+      x: Math.round(a + (b - a) * Math.random()),
+      y: Math.round(a + (b - a) * Math.random()),
+    };
   }
 
   //Moving snake
   for (let i = snake_arr.length - 2; i >= 0; i--) {
-      snake_arr[i + 1] = {...snake_arr[i]};
+    snake_arr[i + 1] = { ...snake_arr[i] };
   }
 
   snake_arr[0].x += inputDir.x;
   snake_arr[0].y += inputDir.y;
-
-
-
 
   //display snake
   board.innerHTML = "";
@@ -88,8 +89,6 @@ function gameEngine() {
     board.appendChild(snakeElement);
   });
 
-
-
   //Display food
   foodElement = document.createElement("div");
   foodElement.style.gridRowStart = food.y;
@@ -102,29 +101,33 @@ function gameEngine() {
 
 window.requestAnimationFrame(main);
 window.addEventListener("keydown", (e) => {
-  inputDir = { x: 0, y: 1 };
-  musicSound.play();
-
+  inputDir = { x: 0, y: 1 }; // Start the game
+  moveSound.play();
   switch (e.key) {
     case "ArrowUp":
+      console.log("ArrowUp");
       inputDir.x = 0;
       inputDir.y = -1;
-      console.log("ArrowUp");
       break;
+
     case "ArrowDown":
+      console.log("ArrowDown");
       inputDir.x = 0;
       inputDir.y = 1;
-      console.log("ArrowDown");
       break;
+
     case "ArrowLeft":
+      console.log("ArrowLeft");
       inputDir.x = -1;
       inputDir.y = 0;
-      console.log("ArrowLest");
       break;
+
     case "ArrowRight":
+      console.log("ArrowRight");
       inputDir.x = 1;
       inputDir.y = 0;
-      console.log("ArrowRight");
+      break;
+    default:
       break;
   }
 });
